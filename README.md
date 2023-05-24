@@ -31,12 +31,10 @@ Scripts are numbered in the order in which they should be performed.
       (if you are processing data from a study that is not longitudinal, omit 'ses-XX')
 5. To run a batch of subjects: \
     a) create a subject list text file (e.g., sublist_b750.txt) with one subject and session per line in the format: 
-
         sub-10001 ses-01 \
         sub-10001 ses-02 \
         sub-10002 ses-01 \
-        sub-10002 ses-02 
-
+        sub-10002 ses-02 \
     b) Copy the subject list to your ARC home directory. \
     c) Copy batch_submit_jobs.sh to your ARC home directory. \
     d) Edit batch_submit_jobs.sh so that subjects_b750 and/or subjects_b2000 match file names of your subject lists and sbatch is set to run the script(s) you wish to run. If you are only running a process on b750 data, comment out the lines for b2000 data. \
