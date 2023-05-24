@@ -30,7 +30,7 @@ Scripts are numbered in the order in which they should be performed.
            ` sbatch script.sh sub-XXXXX ses-XX ` \
       (if you are processing data from a study that is not longitudinal, omit 'ses-XX')
 5. To run a batch of subjects: \
-    a) create a subject list text file (e.g., sublist_b750.txt) with one subject and session per line in the format: 
+    a) create a subject list text file (e.g., sublist_b750.txt) with one subject and session per line in the format: \
         sub-10001 ses-01 \
         sub-10001 ses-02 \
         sub-10002 ses-01 \
