@@ -29,8 +29,8 @@ mkdir $mrtrix_out/${1}/${2}/preproc
 #convert DWI to .mif format 
 mrconvert $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b750_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif -fslgrad $bids_dir/Preschool_b750.bvec $bids_dir/Preschool_b750.bval -json_import $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b750_dwi.json -json_export $mrtrix_out/${1}/${2}/preproc/dwi_b750.json 
 
-#resample to 1.6mm isotropic voxels (matching to original in-plane resolution of the acquisition)
-mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif regrid -vox 1.6 $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif -info
+#resample to 2.2mm isotropic voxels (matching to original in-plane resolution of the acquisition)
+mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif -info
 
 #perform Gibbs Ringing correction 
 mrdegibbs $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif $mrtrix_out/${1}/${2}/preproc/dwi_degibbs.mif -info -force
