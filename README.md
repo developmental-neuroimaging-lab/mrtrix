@@ -29,21 +29,25 @@ Scripts are numbered in the order in which they should be performed.
 4. To run a single subject from your ARC home directory do:
            ` sbatch script.sh sub-XXXXX ses-XX `
       (if you are processing data from a study that is not longitudinal, omit 'ses-XX')
-5. To run a batch of subjects: 
+5. To run a batch of subjects: \
     a) create a subject list text file (e.g., sublist_b750.txt) with one subject and session per line in the format: 
-        sub-10001 ses-01
-        sub-10001 ses-02
-        sub-10002 ses-01
-        sub-10002 ses-02
-
-    b) Copy the subject list to your ARC home directory.
-    c) Copy batch_submit_jobs.sh to your ARC home directory.
+        sub-10001 ses-01 \
+        sub-10001 ses-02 \
+        sub-10002 ses-01 \
+        sub-10002 ses-02 \
+    b) Copy the subject list to your ARC home directory. \
+    c) Copy batch_submit_jobs.sh to your ARC home directory. \
     d) Edit batch_submit_jobs.sh so that subjects_b750 and/or subjects_b2000 match file names of your subject lists and sbatch is set to run the script(s) you wish to run. If you are only running a process on b750 data, comment out the lines for b2000 data. 
-        ` nano batch_submit_jobs.sh `
-        CTRL+X to exit, Y to save
+        ``` 
+        nano batch_submit_jobs.sh 
+        ```
+        CTRL+X to exit, Y to save \
+
     e) Run batch_submit_jobs.sh
-        ` sh batch_submit_jobs.sh `
-        This will submit a separate job for each subject/session in your sublist(s)
+        ``` 
+        sh batch_submit_jobs.sh 
+        ```
+        This will submit a separate job for each subject/session in your sublist(s) 
 
 ### Check job status and troubleshoot
 For each job submitted, a file called slurm-########.out will be printed to your ARC working directory. These files will include text logs of the processing steps. You can read them using:
