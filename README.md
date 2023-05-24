@@ -10,10 +10,14 @@ Scripts are numbered in the order in which they should be performed.
 
 ### How to copy data to the ARC
 1. Set up your ARC home directory. Log into ARC, then create a bids directory (if processing raw data) and an mrtrix directory:
-    ` mkdir preschool_bids`
-    ` mkdir mrtrix `
+    ```
+    mkdir preschool_bids
+    mkdir mrtrix
+    ```
 2. Copy data from Rundle to ARC using rsync (run from a terminal NOT logged into ARC):
-    ` rsync -av /Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/sub-XXXXX --exclude */func --exclude */anat --exclude */perf user.name@arc.ucalgary.ca:/home/user.name/preschool_bids `
+    ``` 
+    rsync -av /Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/sub-XXXXX --exclude */func --exclude */anat --exclude */perf user.name@arc.ucalgary.ca:/home/user.name/preschool_bids 
+    ```
     The above will copy dwi folders for all sessions from the given subject to the preschool_bids folder on ARC, excluding other data modalities.
 
 
@@ -51,4 +55,6 @@ To check the status of jobs you've submitted, run:
 
 ### Moving data to the server
 When your jobs are completed, move the outputs to the Rundle server by running rsync from your local computer:
-        ` rsync -av user.name@arc.ucalgary.ca:/home/user.name/mrtrix/* /Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix `
+```
+rsync -av user.name@arc.ucalgary.ca:/home/user.name/mrtrix/* /Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix 
+```
