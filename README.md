@@ -14,11 +14,16 @@ Scripts are numbered in the order in which they should be performed.
     mkdir preschool_bids
     mkdir mrtrix
     ```
-2. Copy data from Rundle to ARC using rsync (run from a terminal NOT logged into ARC):
+2. Copy data from Rundle to ARC using rsync (run from a terminal NOT logged into ARC): \
+For 1 subject:
     ``` 
     rsync -av /Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/sub-XXXXX --exclude */func --exclude */anat --exclude */perf user.name@arc.ucalgary.ca:/home/user.name/preschool_bids 
     ```
-    The above will copy dwi folders for all sessions from the given subject to the preschool_bids folder on ARC, excluding other data modalities.
+    The above will copy dwi folders for all sessions from the given subject to the preschool_bids folder on ARC, excluding other data modalities. \
+For a batch of subjects: \
+List subject IDs in a text file named batchN.txt (where N is the batch number) \
+Run ` preschool_scripts/data_transfer/rsync_bids2arc.sh ` on the batch file from your local terminal. \
+Script will copy all sessions for that subject to ARC. 
 
 
 ### How to use these scripts 
