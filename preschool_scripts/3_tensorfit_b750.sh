@@ -24,5 +24,5 @@ tensor2metric $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor.mif \
     -fa $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_fa.nii.gz \
     -ad $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_ad.nii.gz \
     -rd $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_rd.nii.gz \
-    -vector $mrtrix_out/${1}/${1}_${2}_dwi_b750_tensor_dec.nii.gz \
+    -vector $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_dec.nii.gz \
     -mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.mif
