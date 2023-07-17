@@ -20,5 +20,9 @@ export mrtrix_out=/home/meaghan.perdue/mrtrix
 dwi2tensor $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor.mif -mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.mif
 
 tensor2metric $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor.mif \
-    -adc -fa -ad -rd \
+    -adc $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_md.nii.gz \
+    -fa $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_fa.nii.gz \
+    -ad $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_ad.nii.gz \
+    -rd $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_rd.nii.gz \
+    -vector $mrtrix_out/${1}/${1}_${2}_dwi_b750_tensor_dec.nii.gz \
     -mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.mif
