@@ -27,7 +27,7 @@ mkdir $mrtrix_out/${1}/${2}
 mkdir $mrtrix_out/${1}/${2}/preproc
 
 #perform L-R flip on raw DWI
-fslswapdim $bids_dir/${1}/${2}/dwi/sub-10001_ses-02_acq-b750_dwi_*.nii.gz -x y z $mrtrix_out/${1}/${2}/preproc/b750_flip.nii.gz
+fslswapdim $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b750_dwi.nii.gz -x y z $mrtrix_out/${1}/${2}/preproc/b750_flip.nii.gz
 
 #convert DWI to .mif format 
 mrconvert $mrtrix_out/${1}/${2}/preproc/b750_flip.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif -fslgrad $bids_dir/Preschool_b750.bvec $bids_dir/Preschool_b750.bval 
