@@ -7,6 +7,8 @@
 
 # dMRI preprocessing for Preschool b2000 for CSD in MRtrix
 # run on HPC
+# data must first be flipped L-R using fslswapdim before copying to ARC. 
+# If a newer version of fsl (>6.0.0) becomes available on ARC, the flip can be incorporated as the 1st step in this script.
 # by Meaghan Perdue
 # 20 April 2023
 module load openmpi/4.1.1-gnu
@@ -26,7 +28,7 @@ mkdir $mrtrix_out/${1}/${2}
 mkdir $mrtrix_out/${1}/${2}/preproc
 
 #convert DWI to .mif format 
-mrconvert $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b2000_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif -fslgrad $bids_dir/Preschool_b2000.bvec $bids_dir/Preschool_b2000.bval -json_import $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b2000_dwi.json -json_export $mrtrix_out/${1}/${2}/preproc/dwi_b2000.json 
+mrconvert $bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b2000_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif -fslgrad $bids_dir/Preschool_b2000.bvec $bids_dir/Preschool_b2000.bval -json_import $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b2000_dwi.json -json_export $mrtrix_out/${1}/${2}/preproc/dwi_b2000.json 
 
 #resample to 2.2mm isotropic voxels (matching to original in-plane resolution of the acquisition)
 mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b2000_resampled.mif -info
