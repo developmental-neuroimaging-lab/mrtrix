@@ -58,4 +58,8 @@ dwi2mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.mif $mrtrix_out/
 mrconvert $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.nii.gz -export_grad_fsl $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.bvec $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.bval -json_export $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.json -force
 mrconvert $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_mask.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_mask.nii.gz -force
 
+#upsample to 1.25mm isotropic voxels (for improved tractography)
+mrgrid $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed.mif regrid -vox 1.25 $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed_upsampled.mif -info -force
+mrgrid $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_mask.mif regrid -vox 1.25 $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_mask_upsampled.mif -force
+
 echo ${1} ${2} b2000 >> $mrtrix_out/dwi_preprocessed.txt

@@ -29,10 +29,10 @@ mkdir $mrtrix_out/${1}/${2}
 mkdir $mrtrix_out/${1}/${2}/preproc
 
 #convert DWI to .mif format 
-mrconvert $bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b750_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif -fslgrad $bids_dir/Preschool_b750.bvec $bids_dir/Preschool_b750.bval  
+mrconvert $bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b750_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif -fslgrad $bids_dir/Preschool_b750.bvec $bids_dir/Preschool_b750.bval  -force
 
 #resample to 2.2mm isotropic voxels (matching to original in-plane resolution of the acquisition)
-mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif -info
+mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b750.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif -info -force
 
 #perform Gibbs Ringing correction 
 mrdegibbs $mrtrix_out/${1}/${2}/preproc/dwi_b750_resampled.mif $mrtrix_out/${1}/${2}/preproc/dwi_degibbs.mif -info -force
@@ -58,5 +58,9 @@ dwi2mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif $mrtrix_out/$
 #Convert preprocessed output and mask to .nii 
 mrconvert $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.nii.gz -export_grad_fsl $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.bvec $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.bval -json_export $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.json -force
 mrconvert $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.nii.gz -force
+
+#upsample to 1.25mm isotropic voxels (for improved tractography)
+mrgrid $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif regrid -vox 1.25 $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_upsampled.mif -info -force
+mrgrid $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask.mif regrid -vox 1.25 $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask_upsampled.mif -force
 
 echo ${1} ${2} b750 >> $mrtrix_out/dwi_preprocessed.txt
