@@ -28,10 +28,10 @@ mkdir $mrtrix_out/${1}/${2}
 mkdir $mrtrix_out/${1}/${2}/preproc
 
 #convert DWI to .mif format 
-mrconvert $bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b2000_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif -fslgrad $bids_dir/Preschool_b2000.bvec $bids_dir/Preschool_b2000.bval -json_import $bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b2000_dwi.json -json_export $mrtrix_out/${1}/${2}/preproc/dwi_b2000.json 
+mrconvert $bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b2000_dwi.nii.gz $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif -fslgrad $bids_dir/Preschool_b2000.bvec $bids_dir/Preschool_b2000.bval -force
 
 #resample to 2.2mm isotropic voxels (matching to original in-plane resolution of the acquisition)
-mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b2000_resampled.mif -info
+mrgrid $mrtrix_out/${1}/${2}/preproc/dwi_b2000.mif regrid -vox 2.2 $mrtrix_out/${1}/${2}/preproc/dwi_b2000_resampled.mif -info -force
 
 
 #perform Gibbs Ringing correction 
