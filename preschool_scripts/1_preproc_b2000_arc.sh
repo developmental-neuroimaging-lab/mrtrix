@@ -20,7 +20,7 @@ module load fsl/6.0.0-bin
 #bids directory
 export bids_dir=/home/meaghan.perdue/preschool_bids
 #output directory
-export mrtrix_out=/home/meaghan.perdue/mrtrix
+export mrtrix_out=/work/lebel_lab/mrtrix
 
 #create a subject folder in the mrtrix directory, sub-folder for session, and sub-folder for preprocessing outputs
 mkdir $mrtrix_out/${1}

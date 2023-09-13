@@ -4,7 +4,7 @@
 # to do so, update b750_subs.txt and b2000_subs.txt and output folders accordingly
 # Script by Meaghan Perdue June 2023
 
-export MRTRIX_OUT=/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix
+export MRTRIX_OUT=/Volumes/BIDS/CL_Preschool/derivatives/mrtrix
 
 # Create list of QUAD folders
 for i in $(cat b750_subs.txt); do

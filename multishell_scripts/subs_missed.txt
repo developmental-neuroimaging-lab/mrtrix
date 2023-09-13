@@ -1,0 +1,17 @@
+sub-10008 ses-07
+sub-10008 ses-08
+sub-10010 ses-07
+sub-10014 ses-06
+sub-10021 ses-05
+sub-10046 ses-05
+sub-10053 ses-09
+sub-10054 ses-06
+sub-10121 ses-09
+sub-10126 ses-05
+sub-10136 ses-15
+sub-10151 ses-04
+sub-10164 ses-04
+sub-10172 ses-04
+sub-10178 ses-01
+sub-10181 ses-02
+sub-10189 ses-01

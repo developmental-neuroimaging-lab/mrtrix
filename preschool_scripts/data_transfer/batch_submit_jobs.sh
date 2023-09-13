@@ -1,3 +1,4 @@
+#!/bin/bash
 #submit jobs for a batch of subjects on ARC
 #subjects_b750 and b2000 should include list of subjects and sessions in the format sub-NNNNN ses-NN
 

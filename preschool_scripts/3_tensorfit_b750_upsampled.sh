@@ -15,7 +15,7 @@ module load mrtrix/3.0.4
 
 #set directory names based on directories in HPC
 #output directory
-export mrtrix_out=/home/meaghan.perdue/mrtrix
+export mrtrix_out=/Volumes/BIDS/CL_Preschool
 
 dwi2tensor $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_upsampled.mif $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_upsampled.mif -mask $mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_mask_upsampled.mif
 
