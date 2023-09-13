@@ -3,10 +3,15 @@
 Developed by Meaghan Perdue, spring 2023
 
 These scripts are written for processing data in batches using the ARC High Performance Computing Cluster.
-To get access to the ARC, follow instructions here: https://rcs.ucalgary.ca/ARC_Cluster_Guide
 
-Ask Bryce for access to the /work/lebel_lab share 
+### ARC access and set-up
+1. To get access to the ARC, follow instructions here: https://rcs.ucalgary.ca/ARC_Cluster_Guide 
 
+2. Ask Bryce for access to the /work/lebel_lab share 
+
+3. Set up ssh key so you can securely log in and transfer data without entering your password every time: <https://www.ibm.com/support/pages/configuring-ssh-login-without-password>
+
+### Things to note before you begin
 Scripts are written in bash and may not be fully compatible with z-shell. Change default shell to bash by running: 
 ```
 chsh -s /bin/bash
@@ -59,12 +64,19 @@ Be sure to copy the .bval and .bvec files from the BIDS parent directory on Rund
         nano batch_submit_jobs.sh 
         ``` \
         CTRL+X to exit, Y to save \
-    e) Run batch_submit_jobs.sh: \
+    e) Run batch_submit_jobs.sh (from terminal logged in to ARC): \
         ``` 
         sh batch_submit_jobs.sh 
         ``` \
         This will submit a separate job for each subject/session in your sublist(s) \
 Output files will be saved to the /work/lebel_lab/mrtrix directory on ARC.
+
+### Notes on the processing pipeline
+    The main processing scripts include preprocessing (both b750 and b2000) and tensor fitting (b2000). \
+    Scripts for multishell processing are located here: /Volumes/catherine_team/Project_Folders/mrtrix/multishell_scripts \
+    These expect as input a preprocessed b750 and b2000 DWI dataset. \
+    Multishell pipeline performs multi-shell multi-tissue CSD and fixel-based analysis pipeline. \
+    Multishell outputs are saved to /work/lebel_lab/mrtrix_multishell 
 
 ### Check job status and troubleshoot
 For each job submitted, a file called slurm-########.out will be printed to your ARC working directory. These files will include text logs of the processing steps. You can read them using: \
@@ -75,7 +87,7 @@ To check the status of jobs you've submitted, run: \
     You should see a list of jobs that are running (status "R") and a list of jobs in queue (status "PD")
 
 ### Moving data to the server
-When your jobs are completed, move the outputs to the Rundle server by running rsync from your local computer:
+When your jobs are completed, move the outputs to the Rundle server by running rsync from your local computer. These files are large; ONLY move the output files that you need to visually inspect or work with on your local computer:
 ```
 rsync -av user.name@arc.ucalgary.ca:/work/lebel_lab/mrtrix/* /Volumes/BIDS/CL_Preschool/derivatives/mrtrix 
 ```
