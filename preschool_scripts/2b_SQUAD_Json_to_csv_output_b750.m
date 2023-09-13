@@ -1,10 +1,10 @@
 %First must install jsonlab app
 %Specify the folders where the jsonlab toolbox and output data exist.
-%addpath /Applications/jsonlab-2.0/jsonlab-2.0
-%addpath(genpath('/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix'));
+addpath /Applications/jsonlab-master
+addpath(genpath('/Volumes/BIDS/CL_Preschool/derivatives/mrtrix'));
 
 % Specify the main folder where the .jsonfiles live.
-myFolder = '/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix';
+myFolder = '/Volumes/BIDS/CL_Preschool/derivatives/mrtrix';
 i=0;
 % Get a list of all files in the folder with the desired file name pattern.
 filelist = dir(fullfile(myFolder, '/sub-*/ses-*/*b750.qc/quad/qc.json')); %/**/** depends on the number of subdirectories you need to go inside to find the file
@@ -50,6 +50,6 @@ colnames={'filename', 'avg_abs_mot_mm', 'avg_rel_mot_mm', 'outliers_b750', 'outl
 T = cell2table(output_b750,'VariableNames',{'filename', 'avg_abs_mot_mm', 'avg_rel_mot_mm', 'outliers_b750', 'outliers_pe', 'outliers_total_pct'})
  
 % Write the table to a CSV file
-writetable(T,'/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix/QC_SQUAD_b750/b750_qc_params.csv');
+writetable(T,'/Volumes/BIDS/CL_Preschool/derivatives/mrtrix/QC_SQUAD_b750/b750_qc_params.csv');
 save output_b750;
-% fclose(fid);
+fclose(fid);

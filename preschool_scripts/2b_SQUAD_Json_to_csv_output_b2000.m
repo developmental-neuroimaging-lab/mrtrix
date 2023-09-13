@@ -4,7 +4,7 @@
 %addpath /Applications/jsonlab-2.0/jsonlab-2.0
 
 % Specify the main folder where the .jsonfiles live.
-myFolder = '/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix';
+myFolder = '/Volumes/BIDS/CL_Preschool/derivatives/mrtrix';
 i=0;
 % Get a list of all files in the folder with the desired file name pattern.
 filelist = dir(fullfile(myFolder, '/sub-*/ses-*/*_b2000.qc/quad/qc.json')); %/**/** depends on the number of subdirectories you need to go inside to find the file. In this case it was maindirectory/subjects/fmap/*.json, so two times **/** for subjects and fmap.
@@ -50,6 +50,6 @@ colnames={'filename', 'avg_abs_mot_mm', 'avg_rel_mot_mm', 'outliers_output_b2000
 T = cell2table(output_b2000,'VariableNames',{'filename', 'avg_abs_mot_mm', 'avg_rel_mot_mm', 'outliers_output_b2000', 'outliers_pe', 'outliers_total_pct'})
  
 % Write the table to a CSV file
-writetable(T,'/Volumes/catherine_team/MRI_Data/2_BIDS_Datasets/preschool/derivatives/mrtrix/QC_SQUAD_b2000/output_b2000_qc_params.csv');
+writetable(T,'/Volumes/BIDS/CL_Preschool/derivatives/mrtrix/QC_SQUAD_b2000/output_b2000_qc_params.csv');
 save output_b2000;
 % fclose(fid);

@@ -16,7 +16,7 @@ module load ants/2.3.1
 module load fsl/6.0.0-bin
 
 #mrtrix directory (contains preprocessed b750 and b2000 data)
-export mrtrix=/home/meaghan.perdue/mrtrix
+export mrtrix=/work/lebel_lab/mrtrix
 #multishell output directory
 export mrtrix_ms=/work/lebel_lab/mrtrix_multishell
 
