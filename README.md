@@ -74,9 +74,11 @@ Output files will be saved to the /work/lebel_lab/mrtrix directory on ARC.
 ### Notes on the processing pipeline
     The main processing scripts include preprocessing (both b750 and b2000) and tensor fitting (b2000). \
     Scripts for multishell processing are located here: /Volumes/catherine_team/Project_Folders/mrtrix/multishell_scripts \
-    These expect as input a preprocessed b750 and b2000 DWI dataset. \
+    These require as input a set of raw b750 and b2000 DWI datasets from each session. \
     Multishell pipeline performs multi-shell multi-tissue CSD and fixel-based analysis pipeline. \
-    Multishell outputs are saved to /work/lebel_lab/mrtrix_multishell 
+    Multishell outputs are saved to /work/lebel_lab/mrtrix_multishell \
+    Multishell processing is now set up to run via MRTrix3 container on ARC (as of Oct. 2023) \
+    See scripts in /Volumes/catherine_team/Project_Folders/mrtrix/multishell_scripts for building and submitting jobs to container. \
 
 ### Check job status and troubleshoot
 For each job submitted, a file called slurm-########.out will be printed to your ARC working directory. These files will include text logs of the processing steps. You can read them using: \
