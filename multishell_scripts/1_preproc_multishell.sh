@@ -6,22 +6,22 @@
 # October 2023
 
 #create a subject folder in the multishell directory, sub-folder for session, and sub-folder for preprocessing outputs
-#mkdir -p /mrtrix_ms/data/${1}/${2}/tmp
+mkdir -p /mrtrix_ms/data/${1}/${2}/tmp
 
 cd /mrtrix_ms/data/${1}/${2}
 
 #resample to 2.2mm isotropic voxels (matching to original in-plane resolution of the acquisition
-#echo "-------- resample raw dwi to 2.2 mm isotropic voxels --------"
-#mrgrid /bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b750_dwi.nii.gz regrid -vox 2.2 tmp/dwi_b750_2mm.nii.gz 
-#mrgrid /bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b2000_dwi.nii.gz regrid -vox 2.2 tmp/dwi_b2000_2mm.nii.gz 
+echo "-------- resample raw dwi to 2.2 mm isotropic voxels --------"
+mrgrid /bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b750_dwi.nii.gz regrid -vox 2.2 tmp/dwi_b750_2mm.nii.gz 
+mrgrid /bids_dir/${1}/${2}/dwi_flip/${1}_${2}_acq-b2000_dwi.nii.gz regrid -vox 2.2 tmp/dwi_b2000_2mm.nii.gz 
 
 # create DWI b2000 mask in 2.2mm voxel resolution using bet (mrtrix dwi2mask tool left bad holes)
-#echo "-------- Create DWI mask --------"
+echo "-------- Create DWI mask --------"
 bet tmp/dwi_b2000_2mm.nii.gz tmp/dwi_b2000_2mm_bet -f .4 -m
 
 #convert DWIs to .mif format 
-#mrconvert tmp/dwi_b750_2mm.nii.gz tmp/dwi_b750_2mm.mif -fslgrad /bids_dir/Preschool_b750.bvec /bids_dir/Preschool_b750.bval 
-#mrconvert  tmp/dwi_b2000_2mm.nii.gz tmp/dwi_b2000_2mm.mif -fslgrad /bids_dir/Preschool_b2000.bvec /bids_dir/Preschool_b2000.bval 
+mrconvert tmp/dwi_b750_2mm.nii.gz tmp/dwi_b750_2mm.mif -fslgrad /bids_dir/Preschool_b750.bvec /bids_dir/Preschool_b750.bval 
+mrconvert  tmp/dwi_b2000_2mm.nii.gz tmp/dwi_b2000_2mm.mif -fslgrad /bids_dir/Preschool_b2000.bvec /bids_dir/Preschool_b2000.bval 
 
 # crop b750 to match b2000
 mrgrid tmp/dwi_b750_2mm.mif crop -as tmp/dwi_b2000_2mm.mif tmp/dwi_b750_crop.mif
