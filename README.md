@@ -29,47 +29,37 @@ Scripts are numbered in the order in which they should be performed.
 2. Copy data from Rundle to ARC using rsync (run from a terminal NOT logged into ARC): \
 For 1 subject:
     ``` 
-    rsync -av /Volumes/BIDS/CL_Preschool/sub-XXXXX --exclude */func --exclude */anat --exclude */perf user.name@arc.ucalgary.ca:/home/user.name/preschool_bids 
+    rsync -av /Volumes/BIDS/CL_Preschool/sub-XXXXX --exclude */func --exclude */anat --exclude */perf user.name@arc.ucalgary.ca:/work/lebel_lab/ps_bids_dwi 
     ```
     The above will copy dwi folders for all sessions from the given subject to the preschool_bids folder on ARC, excluding other data modalities. \
 For a batch of subjects: \
-List subject IDs in a text file named batchN.txt (where N is the batch number) \
+List subject IDs in a text file named tmp.txt \
 Run ` preschool_scripts/data_transfer/rsync_bids2arc.sh ` on the batch file from your local terminal. \
 Script will copy all sessions for that subject to ARC. 
 
-Be sure to copy the .bval and .bvec files from the BIDS parent directory on Rundle to your working BIDS directory on the arc:
-    ```
-    rsync /Volumes/BIDS/CL_Preschool/*.bvec user.name@arc.ucalgary.ca:/home/user.name/preschool_bids
-    rsync /Volumes/BIDS/CL_Preschool/*.bval user.name@arc.ucalgary.ca:/home/user.name/preschool_bids
-    ```
+**IMPORTANT NOTE:** *Do not use the .bvec/.bval files from the subject's bids directories, use the b750_grad_mrtrix.txt and b2000_grad_mrtrix.txt gradient files instead, following import included in the preprocessing scripts to ensure correct directions*
 
 ### How to use these scripts 
-1. Copy the script(s) you want to use to your local working directory.
-2. Edit the directory paths to match the directories in your ARC home directory (change to your username and create sub-folders to match bids_dir and/or mrtrix_out)
-3. Copy the script(s) to your ARC home directory: \
-            ` scp script.sh user.name@arc.ucalgary.ca:/home/user.name `
-4. To run a single subject from your ARC home directory do: \
-           ` sbatch script.sh sub-XXXXX ses-XX ` \
-      (if you are processing data from a study that is not longitudinal, omit 'ses-XX')
-5. To run a batch of subjects: \
-    a) create a subject list text file (e.g., sublist_b750.txt) with one subject and session per line in the format: \
+*Scripts are located on the ARC under /work/lebel_lab/mrtrix/src and set to run in MRtrix3 container and output to /work/lebel_lab/mrtrix/data*
+1. Log into ARC and navigate to /work/lebel_lab/mrtrix/src
+2. Create a subject list text file (e.g., b750_subs.txt) with one subject and session per line in the format: \
         sub-10001 ses-01 \
         sub-10001 ses-02 \
         sub-10002 ses-01 \
         sub-10002 ses-02 \
-    b) Copy the subject list to your ARC home directory. \
-    c) Copy batch_submit_jobs.sh to your ARC home directory. \
-    d) Edit batch_submit_jobs.sh so that subjects_b750 and/or subjects_b2000 match file names of your subject lists and sbatch is set to run the script(s) you wish to run. If you are only running a process on b750 data, comment out the lines for b2000 data. \
+3. Copy the subject list to the ARC directory /work/lebel_lab/mrtrix/src using rsync or scp. \
+
+4. Edit submit_jobs_container.sh so that 'subjects' matches file name of your subject lists and sbatch is set to run the script(s) you wish to run. If you are only running a process on b750 data, comment out the lines for b2000 data. \
         ``` 
-        nano batch_submit_jobs.sh 
+        nano submit_jobs_container.sh 
         ``` \
         CTRL+X to exit, Y to save \
-    e) Run batch_submit_jobs.sh (from terminal logged in to ARC): \
+    e) Run submit_jobs_container.sh (from terminal logged in to ARC): \
         ``` 
-        sh batch_submit_jobs.sh 
+        sh submit_jobs_container.sh 
         ``` \
-        This will submit a separate job for each subject/session in your sublist(s) \
-Output files will be saved to the /work/lebel_lab/mrtrix directory on ARC.
+        This will submit a separate job for each subject/session in your subject list \
+Output files will be saved to the /work/lebel_lab/mrtrix/data directory on ARC.
 
 ### Notes on the processing pipeline
     The main processing scripts include preprocessing (both b750 and b2000) and tensor fitting (b2000). \
