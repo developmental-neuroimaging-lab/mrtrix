@@ -16,7 +16,7 @@ export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=16
 
 img_path=/work/lebel_lab/mrtrix/src/ss3tmrtrix.sif
 
-export APPTAINER_BINDPATH="/work/lebel_lab/mrtrix:/mrtrix"
+export APPTAINER_BINDPATH="/work/lebel_lab/mrtrix/src:/mrtrix_src,/work/lebel_lab/mrtrix/data:/mrtrix_out"
 
 # run container
 apptainer exec ${img_path} "$@"
