@@ -45,6 +45,8 @@ echo "-------- Creating brainmask --------"
 mrconvert /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b2000_preprocessed_1mm.mif -coord 3 0 -axes 0,1,2 /mrtrix_out/${1}/${2}/tmp/dwi_b2000_1mm_b0.nii.gz
 bet /mrtrix_out/${1}/${2}/tmp/dwi_b2000_1mm_b0.nii.gz /mrtrix_out/${1}/${2}/dwi_b2000_1mm_bet -f .4 -m
 
+#cleanup
+rm /mrtrix_out/${1}/${2}/dwi_b2000_1mm_bet.nii.gz
 rm -R /mrtrix_out/${1}/${2}/tmp
 
 echo ${1} ${2} b2000 >> /mrtrix_out/dwi_preprocessed.txt
