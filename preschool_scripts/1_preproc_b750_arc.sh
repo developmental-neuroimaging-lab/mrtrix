@@ -13,7 +13,6 @@ echo "-------- Converting .nii.gz to .mif format --------"
 #once in .mif format, the bvecs and bvals will be stored in the image header, if exporting to .nii.gz at any stage, use export-grad-fsl option with mrconvert
 mrconvert /bids_dir/${1}/${2}/dwi/${1}_${2}_acq-b750_dwi.nii.gz /mrtrix_out/${1}/${2}/tmp/tmp_b750.mif
 mrconvert /mrtrix_out/${1}/${2}/tmp/tmp_b750.mif /mrtrix_out/${1}/${2}/preproc/dwi_b750.mif -grad /bids_dir/b750_grad_mrtrix.txt
-rm -R /mrtrix_out/${1}/${2}/tmp
 
 echo "-------- Resampling to isotropic voxels --------"
 #resample to 2.2mm isotropic voxels (matching to original slice thickness of the acquisition)
@@ -43,7 +42,9 @@ mrgrid /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif regrid -vox 1 /
 
 # Create mask of upsampled DWI using FSL BET - use this if dwi2mask outputs have holes
 echo "-------- Creating brainmask --------"
-mrconvert ${1}_${2}_dwi_b750_preprocessed_1mm.mif -coord 3 0 -axes 0,1,2 tmp/dwi_b750_1mm_b0.nii.gz
-bet tmp/dwi_b750_1mm_b0.nii.gz tmp/dwi_b750_1mm_bet -f .4 -m
+mrconvert /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif -coord 3 0 -axes 0,1,2 /mrtrix_out/${1}/${2}/tmp/dwi_b750_1mm_b0.nii.gz
+bet /mrtrix_out/${1}/${2}/tmp/dwi_b750_1mm_b0.nii.gz /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet -f .4 -m
+
+rm -R /mrtrix_out/${1}/${2}/tmp
 
 echo ${1} ${2} b750 >> /mrtrix_out/dwi_preprocessed.txt
