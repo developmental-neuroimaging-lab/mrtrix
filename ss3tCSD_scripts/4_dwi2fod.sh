@@ -6,24 +6,24 @@
 
 cd /mrtrix_out/${1}/${2}
 
-# Perform SS3T-CSD, using lmax=6 for 30 non-B0 volumes
+# Perform SS3T-CSD
 echo "-------- Running single-shell 3-tissue CSD --------"
-ss3t_csd_beta1 -lmax 6 -info -nthreads 16 \
-    -mask ${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz  \
-    ${1}_${2}_dwi_b2000_preprocessed_1mm.mif  \
+ss3t_csd_beta1 ${1}_${2}_dwi_b2000_preprocessed_1mm.mif  \
     /mrtrix_out/ss3t_group_average/group_average_response_wm.txt ss3t_csd/wmfod.mif \
     /mrtrix_out/ss3t_group_average/group_average_response_gm.txt ss3t_csd/gm.mif \
-    /mrtrix_out/ss3t_group_average/group_average_response_csf.txt ss3t_csd/csf.mif 
+    /mrtrix_out/ss3t_group_average/group_average_response_csf.txt ss3t_csd/csf.mif \
+    -mask ${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz \
+    -info -nthreads 16 
 
 #mrconvert -coord 3 0 ss3t_csd/wmfod.mif - | mrcat ss3t_csd/csf.mif ss3t_csd/gm.mif - ss3t_csd/vf.mif  
 #optionally outputs the rgb visualization of csd ellipsoids
  
 cd ss3t_csd
 echo "-------- Running bias field correction and intensity normalization on FODs --------"
-mtnormalise -mask ../${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz \
-    wmfod.mif wmfod_norm.mif \
+mtnormalise wmfod.mif wmfod_norm.mif \
     gm.mif gm_norm.mif \
     csf.mif csf_norm.mif \
+    -mask ../${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz \
     -info -nthreads 16
 
 #display tissue signal contribution map green=GM, blue=WM, red=CSF
