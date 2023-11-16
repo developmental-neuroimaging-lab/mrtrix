@@ -13,7 +13,7 @@ echo "-------- Running response function estimation --------"
 dwi2response -lmax 6 -info \
     dhollander ${1}_${2}_dwi_b2000_preprocessed_1mm.mif \
     ss3t_csd/wm_response.txt ss3t_csd/gm_response.txt ss3t_csd/csf_response.txt \
-    -mask dwi_b2000_1mm_bet_mask.nii.gz \
+    -mask ${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz \
     -voxels ss3t_csd/voxels.mif -force
 
 #optionally view outputs, check shapes by tissue type (sphere vs. flattened) at each bval
