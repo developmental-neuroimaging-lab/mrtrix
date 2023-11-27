@@ -27,26 +27,52 @@ echo "-------- Running eddy correction and motion correction --------"
 #eddy options slm=linear set due to small number of directions (<60), must include space inside quotes for eddy options to work
 #eddy options repol set to run outlier replacement - helps with motion correction
 #use openmp for faster processing, change nthreads as appropriate
-dwifslpreproc /mrtrix_out/${1}/${2}/preproc/dwi_b750_degibbs.mif /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif \
+dwifslpreproc /mrtrix_out/${1}/${2}/preproc/dwi_b750_degibbs.mif /mrtrix_out/${1}/${2}/preproc/${1}_${2}_dwi_b750_fslpreproc.mif \
 	-eddy_options " --slm=linear --repol" \
 	-rpe_none -pe_dir AP \
 	-eddyqc_all /mrtrix_out/${1}/${2}/${1}_${2}_b750.qc \
 	-nthreads 16 \
 	-force
 
-# DO NOT run bias correction - resulted in overestimated masks
+echo "-------- Running global intensity normalisation --------"
+# bias correction using ANTS algorithm
+# first create mask to use for dwibiascorrect
+bet /mrtrix_out/${1}/${2}/preproc/${1}_${2}_dwi_b750_fslpreproc.mif /mrtrix_out/${1}/${2}/tmp/dwi_b750_bet -f .4 -m
+dwibiascorrect ants -mask /mrtrix_out/${1}/${2}/tmp/dwi_b750_bet_mask.nii.gz \
+	/mrtrix_out/${1}/${2}/preproc/${1}_${2}_dwi_b750_fslpreproc.mif \
+	/mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif
 
-echo "-------- Resample to 1mm voxels and create brainmask --------"
+echo "-------- Resampling to 1mm voxels --------"
 #upsample to 1 mm isotropic voxels (for improved tractography & registration to T1 etc.)
-mrgrid /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif regrid -vox 1 /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif -info -force
+mrgrid /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed.mif regrid -vox 1 /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif -info 
 
-# Create mask of upsampled DWI using FSL BET - use this if dwi2mask outputs have holes
+# Create mask of upsampled DWI using FSL BET (dwi2mask outputs tended to have holes)
 echo "-------- Creating brainmask --------"
 mrconvert /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif -coord 3 0 -axes 0,1,2 /mrtrix_out/${1}/${2}/tmp/dwi_b750_1mm_b0.nii.gz
 bet /mrtrix_out/${1}/${2}/tmp/dwi_b750_1mm_b0.nii.gz /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet -f .4 -m
 
+#Fit tensors can calculate tensor metric maps
+echo "-------- Fitting tensors and creating metric maps --------"
+
+dwi2tensor /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_1mm.mif \
+    -mask /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet_mask.nii.gz
+
+tensor2metric /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_1mm.mif \
+    -adc /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_md_1mm.nii.gz \
+    -fa /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_fa_1mm.nii.gz \
+    -ad /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_ad_1mm.nii.gz \
+    -rd /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_rd_1mm.nii.gz \
+    -vector /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_tensor_dec_1mm.nii.gz \
+    -mask /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet_mask.nii.gz
+
 #cleanup
-rm /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet.nii.gz
 rm -R /mrtrix_out/${1}/${2}/tmp
 
-echo ${1} ${2} b750 >> /mrtrix_out/dwi_preprocessed.txt
+# Print subject and session to preprocessing tracking list
+if test -f /mrtrix_out/${1}/${2}/${1}_${2}_dwi_b750_preprocessed_1mm.mif
+	then
+  	echo ${1} ${2} done >> /mrtrix_out/dwi_b750_preprocessed.txt
+  	else
+	echo ${1} ${2} FAILED >> /mrtrix_out/dwi_b750_preprocessed.txt
+fi
+
