@@ -22,36 +22,36 @@ module load fsl/6.0.0
 cd $mrtrix_out/${1}/${2}
 
 #b750 data
-# mrconvert ${1}_${2}_dwi_b750_preprocessed_1mm.mif ${1}_${2}_b750.qc/${1}_${2}.nii.gz -export_grad_fsl ${1}_${2}_b750.qc/${1}_${2}.bvec ${1}_${2}_b750.qc/${1}_${2}.bval
+mrconvert ${1}_${2}_dwi_b750_preprocessed_1mm.mif ${1}_${2}_b750.qc/${1}_${2}.nii.gz -export_grad_fsl ${1}_${2}_b750.qc/${1}_${2}.bvec ${1}_${2}_b750.qc/${1}_${2}.bval
 cd ${1}_${2}_b750.qc
-# mv eddy_mask.nii ${1}_${2}.eddy_mask.nii
-# mv eddy_movement_rms ${1}_${2}.eddy_movement_rms
-# mv eddy_outlier_map ${1}_${2}.eddy_outlier_map
-# mv eddy_outlier_n_sqr_stdev_map ${1}_${2}.eddy_outlier_n_sqr_stdev_map
-# mv eddy_outlier_n_stdev_map ${1}_${2}.eddy_outlier_n_stdev_map
-# mv eddy_outlier_report ${1}_${2}.eddy_outlier_report
-# mv eddy_parameters ${1}_${2}.eddy_parameters
-# mv eddy_post_eddy_shell_PE_translation_parameters ${1}_${2}.eddy_post_eddy_shell_PE_translation_parameters
-# mv eddy_post_eddy_shell_alignment_parameters ${1}_${2}.eddy_post_eddy_shell_alignment_parameters
-# mv eddy_restricted_movement_rms ${1}_${2}.eddy_restricted_movement_rms
-# eddy_quad ${1}_${2} -idx $index -par $acqparam -m ../${1}_${2}_dwi_b750_1mm_bet_mask.nii.gz -b ${1}_${2}.bval
+mv eddy_mask.nii ${1}_${2}.eddy_mask.nii
+mv eddy_movement_rms ${1}_${2}.eddy_movement_rms
+mv eddy_outlier_map ${1}_${2}.eddy_outlier_map
+mv eddy_outlier_n_sqr_stdev_map ${1}_${2}.eddy_outlier_n_sqr_stdev_map
+mv eddy_outlier_n_stdev_map ${1}_${2}.eddy_outlier_n_stdev_map
+mv eddy_outlier_report ${1}_${2}.eddy_outlier_report
+mv eddy_parameters ${1}_${2}.eddy_parameters
+mv eddy_post_eddy_shell_PE_translation_parameters ${1}_${2}.eddy_post_eddy_shell_PE_translation_parameters
+mv eddy_post_eddy_shell_alignment_parameters ${1}_${2}.eddy_post_eddy_shell_alignment_parameters
+mv eddy_restricted_movement_rms ${1}_${2}.eddy_restricted_movement_rms
+eddy_quad ${1}_${2} -idx $index -par $acqparam -m ../${1}_${2}_dwi_b750_1mm_bet_mask.nii.gz -b ${1}_${2}.bval
 mv ${1}_${2}.qc quad
 	
 cd $mrtrix_out/${1}/${2}
 
 #b2000 data
-# mrconvert ${1}_${2}_dwi_b2000_preprocessed_1mm.mif ${1}_${2}_b2000.qc/${1}_${2}.nii.gz -export_grad_fsl ${1}_${2}_b2000.qc/${1}_${2}.bvec ${1}_${2}_b2000.qc/${1}_${2}.bval
+mrconvert ${1}_${2}_dwi_b2000_preprocessed_1mm.mif ${1}_${2}_b2000.qc/${1}_${2}.nii.gz -export_grad_fsl ${1}_${2}_b2000.qc/${1}_${2}.bvec ${1}_${2}_b2000.qc/${1}_${2}.bval
 cd ${1}_${2}_b2000.qc
-# mv eddy_mask.nii ${1}_${2}.eddy_mask.nii
-# mv eddy_movement_rms ${1}_${2}.eddy_movement_rms
-# mv eddy_outlier_map ${1}_${2}.eddy_outlier_map
-# mv eddy_outlier_n_sqr_stdev_map ${1}_${2}.eddy_outlier_n_sqr_stdev_map
-# mv eddy_outlier_n_stdev_map ${1}_${2}.eddy_outlier_n_stdev_map
-# mv eddy_outlier_report ${1}_${2}.eddy_outlier_report
-# mv eddy_parameters ${1}_${2}.eddy_parameters
-# mv eddy_post_eddy_shell_PE_translation_parameters ${1}_${2}.eddy_post_eddy_shell_PE_translation_parameters
-# mv eddy_post_eddy_shell_alignment_parameters ${1}_${2}.eddy_post_eddy_shell_alignment_parameters
-# mv eddy_restricted_movement_rms ${1}_${2}.eddy_restricted_movement_rms
-# eddy_quad ${1}_${2} -idx $index -par $acqparam -m ../${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz -b ${1}_${2}.bval
+mv eddy_mask.nii ${1}_${2}.eddy_mask.nii
+mv eddy_movement_rms ${1}_${2}.eddy_movement_rms
+mv eddy_outlier_map ${1}_${2}.eddy_outlier_map
+mv eddy_outlier_n_sqr_stdev_map ${1}_${2}.eddy_outlier_n_sqr_stdev_map
+mv eddy_outlier_n_stdev_map ${1}_${2}.eddy_outlier_n_stdev_map
+mv eddy_outlier_report ${1}_${2}.eddy_outlier_report
+mv eddy_parameters ${1}_${2}.eddy_parameters
+mv eddy_post_eddy_shell_PE_translation_parameters ${1}_${2}.eddy_post_eddy_shell_PE_translation_parameters
+mv eddy_post_eddy_shell_alignment_parameters ${1}_${2}.eddy_post_eddy_shell_alignment_parameters
+mv eddy_restricted_movement_rms ${1}_${2}.eddy_restricted_movement_rms
+eddy_quad ${1}_${2} -idx $index -par $acqparam -m ../${1}_${2}_dwi_b2000_1mm_bet_mask.nii.gz -b ${1}_${2}.bval
 mv ${1}_${2}.qc quad
 	
