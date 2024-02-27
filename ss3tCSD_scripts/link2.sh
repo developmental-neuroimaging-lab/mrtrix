@@ -1,5 +1,5 @@
 #!/bin/bash
-symbolic link warped masks to template folder
+#symbolic link warped masks to template folder
 
 cd /work/lebel_lab/mrtrix/data
 
