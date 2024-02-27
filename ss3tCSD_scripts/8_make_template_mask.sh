@@ -4,7 +4,7 @@
 # by Meaghan Perdue
 # Feb 2024
 
-cd /mrtrix_ms/out
+cd /mrtrix_out
 
 mrmath template/warped_mask_input/*_mask_in_template_space.mif min template/template_mask_reading_subs.mif -datatype bit
 
