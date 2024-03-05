@@ -11,5 +11,5 @@ cd /mrtrix_out/
 tck2connectome ${1}/${2}/${1}_${2}_tensor_prob_wholebrain_1mil.tck \
     ${1}/${2}/${1}_${2}_${3}_atlas.mif \
     ${1}/${2}/${1}_${2}_${3}_connectome.csv \
-    -zero_diagonal -tck_weights_in ${1}/${2}/${1}_${2}_${3}_weights.csv \
+    -zero_diagonal \
     -out_assignments ${1}/${2}/${1}_${2}_${3}_assignments.txt
