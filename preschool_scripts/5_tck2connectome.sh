@@ -1,16 +1,15 @@
 #!/bin/bash
 # convert whole brain tractogram to connectome
+# must run labelconvert script first (either locally on on HPC)
 # run on HPC
 # by Meaghan Perdue
 # Feb 2024
 
-cd /mrtrix_out
+cd /mrtrix_out/
 
-# First, run labelconvert to configure MaCRUISE segmentation to mrtrix-compatible format
-labelconvert ${3}_Seg_reg.nii MaCRUISE_atlas_MRItrix.txt \
-            MaCRUISE_atlas_MRItrix.txt \
-            ${1}_${2}_${3}_atlas.mif 
-
-
-# Next, register subject-specific MaCRUISE segmentation to FA map
-mrregister
+# generate connectome matrix using macruise atlas and whole brain tractogram
+tck2connectome ${1}/${2}/${1}_${2}_tensor_prob_wholebrain_1mil.tck \
+    ${1}/${2}/${1}_${2}_${3}_atlas.mif \
+    ${1}/${2}/${1}_${2}_${3}_connectome.csv \
+    -zero_diagonal -tck_weights_in ${1}/${2}/${1}_${2}_${3}_weights.csv \
+    -out_assignments ${1}/${2}/${1}_${2}_${3}_assignments.txt
