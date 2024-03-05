@@ -14,7 +14,7 @@ mkdir -p $atlas_out/${1}/${2}
 flirt -in  $atlas_in/${3}_Seg_a.nii \
       -ref $bids/${1}/${2}/${1}_${2}_dwi_b750_tensor_fa_1mm.nii.gz \
       -out $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.nii.gz \
-      -omat $atlas_out/${1}/${2}/${1}_${2}_T1_reg2FA.mat
+      -omat $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.mat
 
 
 labelconvert $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.nii.gz \
