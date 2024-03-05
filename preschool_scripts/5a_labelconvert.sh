@@ -13,11 +13,16 @@ mkdir -p $atlas_out/${1}/${2}
 # register MaCRUISE segmented T1 to FA map
 flirt -in  $atlas_in/${3}_Seg_a.nii \
       -ref $bids/${1}/${2}/${1}_${2}_dwi_b750_tensor_fa_1mm.nii.gz \
+      -interp nearestneighbour \
       -out $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.nii.gz \
       -omat $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.mat
 
-
+# convert to MRtrix format
 labelconvert $atlas_out/${1}/${2}/${1}_${2}_SEG_reg2FA.nii.gz \
             $atlas_in/MaCRUISE_atlas_MRItrix.txt \
-            $atlas_in/MaCRUISE_atlas_MRItrix.txt \
+            $atlas_in/MaCRUISE_atlas_MRItrix_convert.txt \
             $atlas_out/${1}/${2}/${1}_${2}_${3}_atlas.mif 
+
+# copy atlas to ARC for connectome generation
+rsync $atlas_out/${1}/${2}/${1}_${2}_${3}_atlas.mif meaghan.perdue@arc.ucalgary.ca:/work/lebel_lab/mrtrix/data/${1}/${2}
+
