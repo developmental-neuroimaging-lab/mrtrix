@@ -5,7 +5,7 @@
 # by Meaghan Perdue
 # Feb 2024
 
-#generate whole brain tractogram with 5 million streamlines
+#generate whole brain tractogram with 1 million streamlines
 
 tckgen -algorithm Tensor_Prob -select 1000000 -nthreads 16 \
     -seed_image /mrtrix_out/${1}/${2}/dwi_b750_1mm_bet_mask.nii.gz \
