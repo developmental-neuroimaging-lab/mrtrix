@@ -54,21 +54,26 @@ Script will copy all sessions for that subject to ARC.
         nano submit_jobs_container.sh 
         ``` \
         CTRL+X to exit, Y to save \
-    e) Run submit_jobs_container.sh (from terminal logged in to ARC): \
+     Run submit_jobs_container.sh (from terminal logged in to ARC): \
         ``` 
         sh submit_jobs_container.sh 
         ``` \
         This will submit a separate job for each subject/session in your subject list \
 Output files will be saved to the /work/lebel_lab/mrtrix/data directory on ARC.
+        ``` \
+        **Note: you may add paths to the APPTAINER_BINDPATH in the run_container_mrtrix.sh script by adding them between the quotes with comma separation. These tell the container where source data is and where output data should go relative to the ARC space. The format is /ARC/ABSOLUTE/PATH:/DESIRED/CONTAINER/PATHNAME. Please do not remove existing paths that may be in use by others.**
+
 
 ### Notes on the processing pipeline
     The main processing scripts include preprocessing (both b750 and b2000) and tensor fitting (b2000). \
-    Scripts for multishell processing are located here: /Volumes/catherine_team/Project_Folders/mrtrix/multishell_scripts \
-    These require as input a set of raw b750 and b2000 DWI datasets from each session. \
-    Multishell pipeline performs multi-shell multi-tissue CSD and fixel-based analysis pipeline. \
-    Multishell outputs are saved to /work/lebel_lab/mrtrix_multishell \
-    Multishell processing is now set up to run via MRTrix3 container on ARC (as of Oct. 2023) \
-    See scripts in /Volumes/catherine_team/Project_Folders/mrtrix/multishell_scripts for building and submitting jobs to container. \
+    Optional scripts to run whole brain tractography and compute connectome matrices are included: \
+    4_tckgen_wholebrain.sh \
+    5_tck2connectome.sh \
+    5a_labelconvert.sh - this was run locally to convert the MACRUISE atlas to mrtrix-friendly format \   
+    Scripts for fixel-based analysis processing (b2000 da ta only) are located here: /Volumes/catherine_team/Project_Folders/mrtrix/ss3tCSD_scripts \
+    These scripts are used to run the single-shell-3Tissue Constrained Spherical Deconvolution and calculate Fixel-based metrics (Fiber Density & Fiber Cross-Section). \
+    SS3T-CSD outputs are saved to /work/lebel_lab/mrtrix/data/sub-#####/ses-##/ss3tCSD \
+    The CSD step is completed in a separate MRTrix container using the mrtrix3Tissue fork, all other steps completed in the main mrtrix container \
 
 ### Check job status and troubleshoot
 For each job submitted, a file called slurm-########.out will be printed to your ARC working directory. These files will include text logs of the processing steps. You can read them using: \
