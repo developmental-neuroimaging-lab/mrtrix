@@ -37,7 +37,7 @@ List subject IDs in a text file named tmp.txt \
 Run ` preschool_scripts/data_transfer/rsync_bids2arc.sh ` on the batch file from your local terminal. \
 Script will copy all sessions for that subject to ARC. 
 
-**IMPORTANT NOTE:** *Do not use the .bvec/.bval files from the subject's bids directories, use the b750_grad_mrtrix.txt and b2000_grad_mrtrix.txt gradient files instead, following import included in the preprocessing scripts to ensure correct directions*
+**IMPORTANT NOTE:** *Do not use the .bvec/.bval files from the subject's bids directories, use the b750_grad_mrtrix.txt and b2000_grad_mrtrix.txt gradient files instead, following multi-step data import/conversion included in the preprocessing scripts to ensure correct directions. This is due to the custom gradient table used for data acquisition. The b750_grad_mrtrix.txt and b2000_grad_mrtrix.txt files were created in MATLAB using flip_grad.m and checked by MP.*
 
 ### How to use these scripts 
 *Scripts are located on the ARC under /work/lebel_lab/mrtrix/src and set to run in MRtrix3 container and output to /work/lebel_lab/mrtrix/data*
