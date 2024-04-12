@@ -88,3 +88,10 @@ When your jobs are completed, move the outputs to the Rundle server by running r
 ```
 rsync -av user.name@arc.ucalgary.ca:/work/lebel_lab/mrtrix/* /Volumes/BIDS/CL_Preschool/derivatives/mrtrix 
 ```
+
+### Visual QC of DTI outputs
+Once the data is transferred to Rundle, the script qc_DTI.sh can be used to inspect the brainmask and tensor colormap outputs. To run it, navigate to /Volumes/catherine_team/Project_Folders/mrtrix/preschool_scripts in the terminal, then run:
+```
+sh qc_masks.sh sub-10001 ses-01
+```
+This requires mrtrix and FSL to be installed locally. The preprocessed b750 DWI image will be opened with the brainmask and tensor colormap overlaid. Check the brainmask for holes and manually edit using FSLEYES edit mode if needed. Check colormap to ensure correct encoding of diffusion directions.
