@@ -5,6 +5,10 @@ Developed by Meaghan Perdue, spring 2023
 These scripts are written for processing data in batches using the ARC High Performance Computing Cluster. The main processing script (located in preschool_scripts) are to run preprocessing and tensor-fitting on single-shell DWI data. Scripts for single shell (ss3t) and multi-shell (MSMT) CSD pipelines and automatic tractography via TractSeg can be found under ss3tCSD_scripts and multishell_scripts.
 The information in this document mainly refers to the Preschool Study. Processing pipelines for other studies have been adapted from this pipeline.
 
+As of June 2024, all available Preschool B750 data has been pre-processed and tensor-based metric maps have been computed. Processed outputs are located here: /Volumes/BIDS/CL_Preschool/derivatives/mrtrix \
+This folder includes a subject list including QC metrics from eddy-QC and all preprocessed b750 and b2000 outputs: ps_mrtrix_master.csv \
+and an accompanying data dictionary: ps_mrtrix_master_data_dictionary.xlsx
+
 ### ARC access and set-up
 1. To get access to the ARC, follow instructions here: https://rcs.ucalgary.ca/ARC_Cluster_Guide 
 
