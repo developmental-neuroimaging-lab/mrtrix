@@ -2,7 +2,8 @@
 ## Code for mrtrix processing of DWI data
 Developed by Meaghan Perdue, spring 2023
 
-These scripts are written for processing data in batches using the ARC High Performance Computing Cluster.
+These scripts are written for processing data in batches using the ARC High Performance Computing Cluster. The main processing script (located in preschool_scripts) are to run preprocessing and tensor-fitting on single-shell DWI data. Scripts for single shell (ss3t) and multi-shell (MSMT) CSD pipelines and automatic tractography via TractSeg can be found under ss3tCSD_scripts and multishell_scripts.
+The information in this document mainly refers to the Preschool Study. Processing pipelines for other studies have been adapted from this pipeline.
 
 ### ARC access and set-up
 1. To get access to the ARC, follow instructions here: https://rcs.ucalgary.ca/ARC_Cluster_Guide 
@@ -66,11 +67,11 @@ Output files will be saved to the /work/lebel_lab/mrtrix/data directory on ARC.
 
 ### Notes on the processing pipeline
     The main processing scripts include preprocessing (both b750 and b2000) and tensor fitting (b2000). \
-    Optional scripts to run whole brain tractography and compute connectome matrices are included: \
+    Optional scripts to run whole brain tractography and compute **connectome** matrices are included: \
     4_tckgen_wholebrain.sh \
     5_tck2connectome.sh \
     5a_labelconvert.sh - this was run locally to convert the MACRUISE atlas to mrtrix-friendly format \   
-    Scripts for fixel-based analysis processing (b2000 da ta only) are located here: /Volumes/catherine_team/Project_Folders/mrtrix/ss3tCSD_scripts \
+    Scripts for **fixel-based** analysis processing (b2000 data only) are located here: /Volumes/catherine_team/Project_Folders/mrtrix/ss3tCSD_scripts \
     These scripts are used to run the single-shell-3Tissue Constrained Spherical Deconvolution and calculate Fixel-based metrics (Fiber Density & Fiber Cross-Section). \
     SS3T-CSD outputs are saved to /work/lebel_lab/mrtrix/data/sub-#####/ses-##/ss3tCSD \
     The CSD step is completed in a separate MRTrix container using the mrtrix3Tissue fork, all other steps completed in the main mrtrix container \
